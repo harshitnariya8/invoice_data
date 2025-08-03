@@ -2,6 +2,7 @@ import json
 
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from google import genai
 from google.genai import types
@@ -12,6 +13,13 @@ load_dotenv()
 
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace ["*"] with specific domains for production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 model = "gemini-2.0-flash"
 
